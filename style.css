@@ -1,42 +1,84 @@
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   padding: 20px;
+  margin: 0;
+  background: #f8f8f8;
+}
+
+h1, h2 {
+  text-align: center;
 }
 
 .products {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
 .product {
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 150px;
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  width: 280px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
 .product img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  border-radius: 8px;
 }
+
+.product p {
+  font-size: 14px;
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  margin-top: 5px;
+}
+
 button {
+  display: block;
   margin-top: 10px;
   padding: 8px;
   background: black;
   color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
+
+button:hover {
+  opacity: 0.8;
+}
+
+#cart-list li {
+  margin-bottom: 10px;
+}
+
 .hidden {
   display: none;
 }
+
+#checkout-section {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
 /* 📱 手機版 */
 @media (max-width: 768px) {
   .products {
     flex-direction: column;
+    align-items: center;
   }
 
   .product {
-    width: 100%;
+    width: 90%;
   }
 }
