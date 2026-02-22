@@ -42,7 +42,8 @@ input[type="number"] {
 }
 
 button {
-  
+  display: block;
+  margin: 10px auto 0 auto;
   margin-top: 10px;
   padding: 8px;
   background: black;
