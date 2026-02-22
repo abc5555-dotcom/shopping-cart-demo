@@ -1,6 +1,6 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// 儲存購物車
+// 儲存
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
@@ -21,7 +21,7 @@ function addToCart(name, price, qtyId) {
   updateCart();
 }
 
-// 更新畫面
+// 更新購物車畫面
 function updateCart() {
   const cartList = document.getElementById("cart-list");
   const totalElement = document.getElementById("total");
@@ -33,13 +33,17 @@ function updateCart() {
     const subtotal = item.price * item.quantity;
     total += subtotal;
 
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${item.name} - $${item.price} x ${item.quantity} = $${subtotal}
-      <button onclick="removeItem(${index})">刪除</button>
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${item.name}</td>
+      <td>${item.quantity}</td>
+      <td>$${item.price}</td>
+      <td>$${subtotal}</td>
+      <td><button onclick="removeItem(${index})">刪除</button></td>
     `;
 
-    cartList.appendChild(li);
+    cartList.appendChild(tr);
   });
 
   totalElement.textContent = total;
@@ -52,7 +56,7 @@ function removeItem(index) {
   updateCart();
 }
 
-// 結帳按鈕
+// 結帳
 function checkout() {
   if (cart.length === 0) {
     alert("購物車是空的！");
@@ -64,12 +68,12 @@ function checkout() {
 
 // 假付款
 function fakePayment() {
-  alert("付款成功！（模擬）");
+  alert("付款成功！");
   cart = [];
   saveCart();
   updateCart();
   document.getElementById("checkout-section").classList.add("hidden");
 }
 
-// 頁面載入時更新
+// 頁面載入時執行
 updateCart();
