@@ -82,3 +82,17 @@ button:hover {
     width: 90%;
   }
 }
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #eee;
+}
