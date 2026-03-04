@@ -1,99 +1,156 @@
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
   margin: 0;
-  background: #f8f8f8;
+  font-family: "Segoe UI", sans-serif;
+  background: #f5f6fa;
+  color: #333;
 }
 
-h1, h2 {
+/* Header */
+header {
+  background: white;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.main-title {
   text-align: center;
+  margin: 40px 0 20px;
 }
 
+/* 商品卡片 */
 .products {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
   justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
 .product {
   background: white;
-  border-radius: 10px;
-  padding: 15px;
-  width: 280px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 260px;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: 0.3s;
+}
+
+.product:hover {
+  transform: translateY(-5px);
 }
 
 .product img {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 8px;
-}
-
-.product p {
-  font-size: 14px;
-}
-
-input[type="number"] {
-  width: 60px;
-  padding: 5px;
-  margin-top: 5px;
-}
-
-button {
-  display: block;
-  margin: 10px auto 0 auto;
-  margin-top: 10px;
-  padding: 8px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-#cart-list li {
-  margin-bottom: 10px;
-}
-
-.hidden {
-  display: none;
-}
-
-#checkout-section {
-  background: white;
-  padding: 20px;
-  margin-top: 20px;
   border-radius: 10px;
 }
 
-/* 📱 手機版 */
-@media (max-width: 768px) {
-  .products {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .product {
-    width: 90%;
-  }
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
 }
-table {
-  margin-top: 20px;
-  border-collapse: collapse;
+
+/* 按鈕樣式 */
+button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #111;
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.8;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #111;
+}
+
+/* 購物車 */
+.cart-section {
   background: white;
+  margin: 50px auto;
+  padding: 30px;
+  width: 80%;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 th, td {
-  padding: 10px;
+  padding: 12px;
   text-align: center;
 }
 
 th {
-  background: #eee;
+  background: #f0f0f0;
+}
+
+.cart-total {
+  text-align: right;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.btn-checkout {
+  margin-top: 20px;
+  width: 100%;
+  background: #111;
+  color: white;
+  padding: 12px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content {
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  width:300px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.hidden {
+  display:none;
+}
+
+.checkout {
+  background:white;
+  padding:30px;
+  width:400px;
+  margin:30px auto;
+  border-radius:15px;
 }
