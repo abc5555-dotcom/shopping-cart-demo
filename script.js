@@ -7,9 +7,23 @@ function saveCart() {
 
 function updateUserUI(){
   const userInfo = document.getElementById("user-info");
+  const loginBtn = document.getElementById("login-btn");
+
   if(currentUser){
     userInfo.textContent = "歡迎，" + currentUser;
+    loginBtn.textContent = "登出";
+    loginBtn.onclick = logout;
+  }else{
+    userInfo.textContent = "未登入";
+    loginBtn.textContent = "登入";
+    loginBtn.onclick = openLogin;
   }
+}
+
+function logout(){
+  localStorage.removeItem("user");
+  currentUser = null;
+  updateUserUI();
 }
 
 function addToCart(name, price, qtyId){
