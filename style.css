@@ -124,7 +124,7 @@ th {
   padding: 12px;
 }
 
-/* Modal */
+/* Modal 背景 */
 .modal {
   position: fixed;
   top:0;
@@ -137,18 +137,65 @@ th {
   align-items:center;
 }
 
+/* Modal 內容 */
 .modal-content {
   background:white;
-  padding:30px;
-  border-radius:15px;
-  width:300px;
+  padding:40px 35px;   /* 👈 拉開內距 */
+  border-radius:18px;
+  width:350px;
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:25px;            /* 👈 元素間距拉大 */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
+/* 標題置中 */
+.modal-title {
+  text-align:center;
+  margin:0;
+  font-size:22px;
+  font-weight:bold;
+}
+
+/* 表單群組 */
+.form-group {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+/* label 樣式 */
+.form-group label {
+  font-size:14px;
+  font-weight:600;
+}
+
+/* input 美化 */
+.form-group input {
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-size:14px;
+  transition:0.2s;
+}
+
+/* focus 效果 */
+.form-group input:focus {
+  border-color:#111;
+  outline:none;
+  box-shadow:0 0 0 2px rgba(0,0,0,0.05);
+}
+
+/* 登入按鈕 */
+.login-btn {
+  margin-top:10px;
+  padding:12px;
+  font-size:15px;
+}
+
+/* 隱藏 */
 .hidden {
-  display: none !important;
+  display:none !important;
 }
 
 .checkout {
