@@ -158,3 +158,29 @@ th {
   margin:30px auto;
   border-radius:15px;
 }
+
+.payment-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* 兩欄 */
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* 讓第三個 input（安全碼）佔滿整排 */
+.payment-form input:nth-child(3) {
+  grid-column: span 2;
+}
+
+.payment-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* 結帳按鈕置中 */
+.pay-btn {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  padding: 12px;
+}
