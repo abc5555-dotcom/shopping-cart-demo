@@ -1,6 +1,14 @@
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let currentUser = localStorage.getItem("user") || null;
-let pendingCheckout = false; // 🔥 記錄是否因為結帳而觸發登入
+/* =============================
+   🔥 每次重整都清空資料
+============================= */
+localStorage.clear();
+
+/* =============================
+   變數初始化
+============================= */
+let cart = [];
+let currentUser = null;
+let pendingCheckout = false;
 
 /* =============================
    基本儲存
@@ -30,7 +38,6 @@ function updateUserUI(){
 }
 
 function logout(){
-  localStorage.removeItem("user");
   currentUser = null;
   updateUserUI();
 }
@@ -55,7 +62,6 @@ function addToCart(name, price, qtyId){
     cart.push({name, price, quantity});
   }
 
-  saveCart();
   updateCart();
 }
 
@@ -86,7 +92,6 @@ function updateCart(){
 
 function removeItem(index){
   cart.splice(index,1);
-  saveCart();
   updateCart();
 }
 
@@ -104,13 +109,10 @@ function login(){
 
   if(account && password){
     currentUser = account;
-    localStorage.setItem("user",account);
 
     document.getElementById("login-modal").classList.add("hidden");
-
     updateUserUI();
 
-    // 🔥 如果是因為結帳才登入，登入成功後自動跳轉付款
     if(pendingCheckout){
       showCheckoutSection();
       pendingCheckout = false;
@@ -132,10 +134,9 @@ function checkout(){
     return;
   }
 
-  // 未登入
   if(!currentUser){
     alert("請先登入會員");
-    pendingCheckout = true;  // 🔥 記錄狀態
+    pendingCheckout = true;
     openLogin();
     return;
   }
@@ -166,7 +167,6 @@ function fakePayment(){
   alert("付款成功！");
 
   cart = [];
-  saveCart();
   updateCart();
 
   document.getElementById("checkout-section").classList.add("hidden");
