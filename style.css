@@ -41,7 +41,10 @@ header {
   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   text-align: center;
   transition: 0.3s;
-  gap: 15px;
+}
+
+.product button {
+  margin-top: 20px;
 }
 
 .product:hover {
