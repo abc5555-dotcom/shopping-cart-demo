@@ -81,9 +81,11 @@ function checkout(){
     return;
   }
 
+  // 👇 強制登入
   if(!currentUser){
+    alert("請先登入會員");
     openLogin();
-    return;
+    return;   // ⚠ 這行非常重要，沒有它就會往下執行
   }
 
   document.getElementById("checkout-section").classList.remove("hidden");
