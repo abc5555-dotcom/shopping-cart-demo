@@ -27,10 +27,10 @@ header {
 
 /* 商品卡片 */
 .products {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 260px);
   justify-content: center;
   gap: 30px;
-  flex-wrap: wrap;
 }
 
 .product {
