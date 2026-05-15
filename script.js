@@ -1,132 +1,230 @@
-    const cartBtn =
-      document.getElementById("cart-btn");
+// ===== Elements =====
 
-    const closeCart =
-      document.getElementById("close-cart");
+const cartBtn =
+  document.getElementById("cart-btn");
 
-    const cartDrawer =
-      document.getElementById("cart-drawer");
+const closeCart =
+  document.getElementById("close-cart");
 
-    const overlay =
-      document.getElementById("overlay");
+const cartDrawer =
+  document.getElementById("cart-drawer");
 
-    const cartItems =
-      document.getElementById("cart-items");
+const overlay =
+  document.getElementById("overlay");
 
-    const cartTotal =
-      document.getElementById("cart-total");
+const cartItems =
+  document.getElementById("cart-items");
 
-    const cartCount =
-      document.getElementById("cart-count");
+const cartTotal =
+  document.getElementById("cart-total");
 
-    let cart = [];
+const cartCount =
+  document.getElementById("cart-count");
 
-    // ===== Open Cart =====
+const toast =
+  document.getElementById("toast");
 
-    cartBtn.addEventListener("click", () => {
+const checkoutBtn =
+  document.getElementById("checkout-btn");
 
-      cartDrawer.classList.add("open");
 
-      overlay.classList.remove("hidden");
+// ===== Cart Data =====
 
+let cart = [];
+
+
+// ===== Open Cart =====
+
+cartBtn.addEventListener("click", () => {
+
+  cartDrawer.classList.add("open");
+
+  overlay.classList.remove("hidden");
+
+});
+
+
+// ===== Close Cart =====
+
+function closeCartDrawer() {
+
+  cartDrawer.classList.remove("open");
+
+  overlay.classList.add("hidden");
+
+}
+
+closeCart.addEventListener(
+  "click",
+  closeCartDrawer
+);
+
+overlay.addEventListener(
+  "click",
+  closeCartDrawer
+);
+
+
+// ===== Toast =====
+
+function showToast(message) {
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+
+    toast.classList.remove("show");
+
+  }, 2000);
+
+}
+
+
+// ===== Add To Cart =====
+
+function addToCart(name, price) {
+
+  const existingItem =
+    cart.find(item => item.name === name);
+
+  if (existingItem) {
+
+    existingItem.qty++;
+
+  } else {
+
+    cart.push({
+      name: name,
+      price: price,
+      qty: 1
     });
 
-    // ===== Close Cart =====
+  }
 
-    function closeCartDrawer(){
+  renderCart();
 
-      cartDrawer.classList.remove("open");
+  // Toast 提醒
 
-      overlay.classList.add("hidden");
+  showToast(`${name} 已加入購物車`);
 
-    }
+}
 
-    closeCart.addEventListener(
-      "click",
-      closeCartDrawer
-    );
 
-    overlay.addEventListener(
-      "click",
-      closeCartDrawer
-    );
+// ===== Render Cart =====
 
-    // ===== Add To Cart =====
+function renderCart() {
 
-    function addToCart(name, price){
+  cartItems.innerHTML = "";
 
-      const existingItem =
-        cart.find(item => item.name === name);
+  let total = 0;
 
-      if(existingItem){
+  let count = 0;
 
-        existingItem.qty++;
 
-      }else{
+  // ===== Empty Cart =====
 
-        cart.push({
-          name:name,
-          price:price,
-          qty:1
-        });
+  if (cart.length === 0) {
 
-      }
+    cartItems.innerHTML = `
+      <p class="empty-cart">
+        購物車目前是空的
+      </p>
+    `;
 
-      renderCart();
+  }
 
-    }
 
-    // ===== Render Cart =====
+  cart.forEach((item, index) => {
 
-    function renderCart(){
+    total += item.price * item.qty;
 
-      cartItems.innerHTML = "";
+    count += item.qty;
 
-      let total = 0;
+    cartItems.innerHTML += `
 
-      let count = 0;
+      <div class="cart-item">
 
-      cart.forEach((item,index)=>{
+        <div class="cart-item-info">
 
-        total += item.price * item.qty;
+          <h4>
+            ${item.name}
+          </h4>
 
-        count += item.qty;
+          <p>
+            $${item.price} × ${item.qty}
+          </p>
 
-        cartItems.innerHTML += `
-          <div class="cart-item">
+        </div>
 
-            <div>
-              <h4>${item.name}</h4>
+        <button
+          class="remove-btn"
+          onclick="removeItem(${index})"
+        >
 
-              <p>
-                $${item.price} × ${item.qty}
-              </p>
-            </div>
+          刪除
 
-            <button
-              class="remove-btn"
-              onclick="removeItem(${index})"
-            >
-              刪除
-            </button>
+        </button>
 
-          </div>
-        `;
+      </div>
 
-      });
+    `;
 
-      cartTotal.textContent = total;
+  });
 
-      cartCount.textContent = count;
+  cartTotal.textContent = total;
 
-    }
+  cartCount.textContent = count;
 
-    // ===== Remove Item =====
+}
 
-    function removeItem(index){
 
-      cart.splice(index,1);
+// ===== Remove Item =====
 
-      renderCart();
+function removeItem(index) {
 
-    }
+  const removedItem = cart[index].name;
+
+  cart.splice(index, 1);
+
+  renderCart();
+
+  showToast(`${removedItem} 已移除`);
+
+}
+
+
+// ===== Checkout =====
+
+checkoutBtn.addEventListener("click", () => {
+
+  // 空購物車
+
+  if (cart.length === 0) {
+
+    showToast("購物車是空的");
+
+    return;
+
+  }
+
+  // 模擬結帳
+
+  showToast("付款成功，感謝您的購買");
+
+  // 清空購物車
+
+  cart = [];
+
+  renderCart();
+
+  // 關閉購物車
+
+  closeCartDrawer();
+
+});
+
+// ===== Initial Render =====
+
+renderCart();
