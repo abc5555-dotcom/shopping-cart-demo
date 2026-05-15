@@ -1,180 +1,132 @@
-/* =============================
-   🔥 每次重整都清空資料
-============================= */
-localStorage.clear();
+    const cartBtn =
+      document.getElementById("cart-btn");
 
-/* =============================
-   變數初始化
-============================= */
-let cart = [];
-let currentUser = null;
-let pendingCheckout = false;
+    const closeCart =
+      document.getElementById("close-cart");
 
-/* =============================
-   基本儲存
-============================= */
+    const cartDrawer =
+      document.getElementById("cart-drawer");
 
-function saveCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
+    const overlay =
+      document.getElementById("overlay");
 
-/* =============================
-   使用者狀態 UI
-============================= */
+    const cartItems =
+      document.getElementById("cart-items");
 
-function updateUserUI(){
-  const userInfo = document.getElementById("user-info");
-  const loginBtn = document.getElementById("login-btn");
+    const cartTotal =
+      document.getElementById("cart-total");
 
-  if(currentUser){
-    userInfo.textContent = "歡迎，" + currentUser;
-    loginBtn.textContent = "登出";
-    loginBtn.onclick = logout;
-  }else{
-    userInfo.textContent = "未登入";
-    loginBtn.textContent = "登入";
-    loginBtn.onclick = openLogin;
-  }
-}
+    const cartCount =
+      document.getElementById("cart-count");
 
-function logout(){
-  currentUser = null;
-  updateUserUI();
-}
+    let cart = [];
 
-/* =============================
-   購物車功能
-============================= */
+    // ===== Open Cart =====
 
-function addToCart(name, price, qtyId){
-  const quantity = parseInt(document.getElementById(qtyId).value);
+    cartBtn.addEventListener("click", () => {
 
-  if(quantity <= 0 || isNaN(quantity)){
-    alert("請輸入正確數量");
-    return;
-  }
+      cartDrawer.classList.add("open");
 
-  const existing = cart.find(item => item.name === name);
+      overlay.classList.remove("hidden");
 
-  if(existing){
-    existing.quantity += quantity;
-  }else{
-    cart.push({name, price, quantity});
-  }
+    });
 
-  updateCart();
-}
+    // ===== Close Cart =====
 
-function updateCart(){
-  const cartList = document.getElementById("cart-list");
-  const totalElement = document.getElementById("total");
+    function closeCartDrawer(){
 
-  cartList.innerHTML = "";
-  let total = 0;
+      cartDrawer.classList.remove("open");
 
-  cart.forEach((item,index)=>{
-    const subtotal = item.price * item.quantity;
-    total += subtotal;
+      overlay.classList.add("hidden");
 
-    cartList.innerHTML += `
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.quantity}</td>
-        <td>$${item.price}</td>
-        <td>$${subtotal}</td>
-        <td><button onclick="removeItem(${index})">刪除</button></td>
-      </tr>
-    `;
-  });
-
-  totalElement.textContent = total;
-}
-
-function removeItem(index){
-  cart.splice(index,1);
-  updateCart();
-}
-
-/* =============================
-   登入功能
-============================= */
-
-function openLogin(){
-  document.getElementById("login-modal").classList.remove("hidden");
-}
-
-function login(){
-  const account = document.getElementById("login-account").value;
-  const password = document.getElementById("login-password").value;
-
-  if(account && password){
-    currentUser = account;
-
-    document.getElementById("login-modal").classList.add("hidden");
-    updateUserUI();
-
-    if(pendingCheckout){
-      showCheckoutSection();
-      pendingCheckout = false;
     }
 
-  }else{
-    alert("請輸入帳號密碼");
-  }
-}
+    closeCart.addEventListener(
+      "click",
+      closeCartDrawer
+    );
 
-/* =============================
-   結帳流程
-============================= */
+    overlay.addEventListener(
+      "click",
+      closeCartDrawer
+    );
 
-function checkout(){
+    // ===== Add To Cart =====
 
-  if(cart.length === 0){
-    alert("購物車是空的");
-    return;
-  }
+    function addToCart(name, price){
 
-  if(!currentUser){
-    alert("請先登入會員");
-    pendingCheckout = true;
-    openLogin();
-    return;
-  }
+      const existingItem =
+        cart.find(item => item.name === name);
 
-  showCheckoutSection();
-}
+      if(existingItem){
 
-/* =============================
-   顯示付款區 + 平滑滾動
-============================= */
+        existingItem.qty++;
 
-function showCheckoutSection() {
-  const checkout = document.getElementById("checkout-section");
+      }else{
 
-  checkout.classList.remove("hidden");
+        cart.push({
+          name:name,
+          price:price,
+          qty:1
+        });
 
-  checkout.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-}
+      }
 
-/* =============================
-   付款完成
-============================= */
+      renderCart();
 
-function fakePayment(){
-  alert("付款成功！");
+    }
 
-  cart = [];
-  updateCart();
+    // ===== Render Cart =====
 
-  document.getElementById("checkout-section").classList.add("hidden");
-}
+    function renderCart(){
 
-/* =============================
-   初始化
-============================= */
+      cartItems.innerHTML = "";
 
-updateCart();
-updateUserUI();
+      let total = 0;
+
+      let count = 0;
+
+      cart.forEach((item,index)=>{
+
+        total += item.price * item.qty;
+
+        count += item.qty;
+
+        cartItems.innerHTML += `
+          <div class="cart-item">
+
+            <div>
+              <h4>${item.name}</h4>
+
+              <p>
+                $${item.price} × ${item.qty}
+              </p>
+            </div>
+
+            <button
+              class="remove-btn"
+              onclick="removeItem(${index})"
+            >
+              刪除
+            </button>
+
+          </div>
+        `;
+
+      });
+
+      cartTotal.textContent = total;
+
+      cartCount.textContent = count;
+
+    }
+
+    // ===== Remove Item =====
+
+    function removeItem(index){
+
+      cart.splice(index,1);
+
+      renderCart();
+
+    }
