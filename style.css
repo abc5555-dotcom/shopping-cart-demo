@@ -395,32 +395,23 @@ header{
 
 /* ===== Toast ===== */
 
-.toast{
-  position:fixed;
-
-  top:30px;
-  right:30px;
-
-  background:#4f463d;
-
-  color:white;
-
-  padding:14px 22px;
-
-  border-radius:14px;
-
-  z-index:2000;
-
-  opacity:0;
-
-  transform:translateY(-20px);
-
-  transition:0.4s ease;
+.toast {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: #4f463d;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 14px;
+  z-index: 2000;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: 0.4s ease;
+  /* ⭐關鍵修正 */
+  pointer-events: none;
 }
-
 .toast.show{
   opacity:1;
-
   transform:translateY(0);
 }
 
