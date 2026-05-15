@@ -1,98 +1,240 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>Sweet Cake</title>
+
   <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
+
   <!-- ===== Header ===== -->
+
   <header>
+
     <div class="logo">
       Sweet Cake
     </div>
+
     <div class="nav-right">
+
       <button id="cart-btn" class="cart-btn">
-        🛒 <span id="cart-count">0</span>
+
+        🛒
+
+        <span id="cart-count">
+          0
+        </span>
+
       </button>
+
     </div>
+
   </header>
-  
+
   <!-- ===== Products ===== -->
+
   <section class="products-section">
+
     <h2 class="section-title">
-      熱門商品
+
+      精選甜點
+
     </h2>
+
     <div class="products">
+
       <!-- Product -->
+
       <div class="product">
-        <img src="img/01.png">
+
+        <img src="img/01.png" alt="草莓蛋糕">
+
         <div class="product-content">
-          <h3>草莓蛋糕</h3>
-          <p class="price">$120</p>
+
+          <h3>
+            草莓蛋糕
+          </h3>
+
+          <p class="price">
+            $120
+          </p>
+
           <button
             class="btn-primary"
             onclick="addToCart('草莓蛋糕',120)"
           >
+
             加入購物車
+
           </button>
+
         </div>
+
       </div>
 
       <!-- Product -->
+
       <div class="product">
-        <img src="img/02.png">
+
+        <img src="img/02.png" alt="巧克力蛋糕">
+
         <div class="product-content">
-          <h3>巧克力蛋糕</h3>
-          <p class="price">$150</p>
+
+          <h3>
+            巧克力蛋糕
+          </h3>
+
+          <p class="price">
+            $150
+          </p>
+
           <button
             class="btn-primary"
             onclick="addToCart('巧克力蛋糕',150)"
           >
+
             加入購物車
+
           </button>
+
         </div>
+
       </div>
 
       <!-- Product -->
+
       <div class="product">
-        <img src="img/03.png">
+
+        <img src="img/03.png" alt="藍莓乳酪">
+
         <div class="product-content">
-          <h3>藍莓乳酪</h3>
-          <p class="price">$180</p>
+
+          <h3>
+            藍莓乳酪
+          </h3>
+
+          <p class="price">
+            $180
+          </p>
+
           <button
             class="btn-primary"
             onclick="addToCart('藍莓乳酪',180)"
           >
+
             加入購物車
+
           </button>
+
         </div>
+
       </div>
+
     </div>
+
   </section>
 
   <!-- ===== Overlay ===== -->
-  <div id="overlay" class="overlay hidden"></div>
+
+  <div
+    id="overlay"
+    class="overlay hidden"
+  ></div>
+
   <!-- ===== Cart Drawer ===== -->
-  <div id="cart-drawer" class="cart-drawer">
+
+  <div
+    id="cart-drawer"
+    class="cart-drawer"
+  >
+
+    <!-- Cart Header -->
+
     <div class="cart-header">
-      <h2>購物車</h2>
-      <button id="close-cart" class="close-cart">
+
+      <h2>
+        購物車
+      </h2>
+
+      <button
+        id="close-cart"
+        class="close-cart"
+      >
         ✕
       </button>
+
     </div>
-    <div id="cart-items" class="cart-items"></div>
+
+    <!-- Cart Items -->
+
+    <div
+      id="cart-items"
+      class="cart-items"
+    ></div>
+
+    <!-- Cart Footer -->
+
     <div class="cart-footer">
+
       <h3>
+
         總金額：
-        $<span id="cart-total">0</span>
+
+        $<span id="cart-total">
+          0
+        </span>
+
       </h3>
-      <button class="checkout-btn">
-        前往結帳
+
+      <button
+        id="checkout-btn"
+        class="checkout-btn"
+      >
+
+        確認結帳
+
       </button>
+
     </div>
+
   </div>
+
+  <!-- ===== Toast ===== -->
+
+  <div
+    id="toast"
+    class="toast"
+  >
+
+    已加入購物車
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+
+  <footer>
+
+    <p>
+      © 2026 Sweet Cake
+    </p>
+
+  </footer>
+
+  <!-- ===== JS ===== -->
+
   <script src="script.js"></script>
+
 </body>
+
 </html>
